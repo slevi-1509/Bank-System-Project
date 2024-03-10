@@ -6,7 +6,7 @@ class BankAccount {
     this.accountNumber = this.generateAccountNumber();
     this.pinNumber = this.generatePinNumber();
     this.balance = 0;
-    this.transactions = []; // Array to store transactions
+    this.transactions = [9]; // Array to store transactions
     BankAccount.totalUsers++;
     }
 
@@ -16,7 +16,7 @@ class BankAccount {
     }
 
     generatePinNumber() {
-        // Generating a random 8-digit account number
+        // Generating a random 4-digit PIN number
         return Math.floor(Math.random() * 9000) + 1000;
     }
 
@@ -55,33 +55,33 @@ class BankAccount {
 }
   
 function createNewAccount(){
-    const newUser1 = new BankAccount ("Shimon","Aflalo","876543210");
     const newUser = new BankAccount ("Sagiv","Levi","012345678");
-    console.log(newUser1);
-    // console.log(newUser.firstName);
-    // userDB.account.id = newUser.id;
-    // userDB.account.firstName = newUser.firstName;
-    // userDB.account.lastName = newUser.lastName;
-    // userDB.account.accountNumber = newUser.accountNumber
-    // userDB.account.pinNumber = newUser.pinNumber;
-    // console.log( userDB.account.firstName);
+    console.log(newUser);
+    console.log(newUser.firstName);
+    // userDB.id = newUser.id;
+    // userDB.firstName = newUser.firstName;
+    // userDB.lastName = newUser.lastName;
+    // userDB.accountNumber = newUser.accountNumber
+    // userDB.pinNumber = newUser.pinNumber;
+    // console.log( userDB.firstName);
 }
 
-let userDB = {
-    account: {
-        id: "",
-        firstName: "",
-        lastName: "",
-        accountNumber: "",
-        pinNumber: "",
-        balance: 0,
-        transactions:[{
-            
-        }]
-    },
-}
+// let userDB = {
+//     id: "",
+//     firstName: "",
+//     lastName: "",
+//     accountNumber: "",
+//     pinNumber: "",
+//     balance: 0,
+//     transactions:[{
+//         type: "",
+//         amount: "",
+//         date: "",
+//     }]
+// }
 
 createNewAccount();
 // BankAccount.deposit(3000);
-console.log(BankAccount);
+
+console.log(userDB);
 
