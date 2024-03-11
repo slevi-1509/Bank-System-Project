@@ -6,7 +6,7 @@ class BankAccount {
     this.accountNumber = this.generateAccountNumber();
     this.pinNumber = this.generatePinNumber();
     this.balance = 0;
-    this.transactions = [9]; // Array to store transactions
+    this.transactions = []; // Array to store transactions
     BankAccount.totalUsers++;
     }
 
@@ -20,11 +20,35 @@ class BankAccount {
         return Math.floor(Math.random() * 9000) + 1000;
     }
 
+    depsoitSum(){
+        if (this.transactions[0] !== undefined){
+            let sum = 0;
+            this.transactions.filter(function(element){
+                return element.date
+            })    
+        }
+    }
+
     deposit(amount) {
-    this.balance += amount;
-    BankAccount.totalMoney += amount;
-    this.transactions.push({ type: "deposit", date: new Date(), amount: amount });
-    return `Successfully deposited שח${amount} into account ${this.accountNumber}.`;
+        debugger;
+        if (this.transactions[0] !== undefined){
+            let currDate = new Date().getTime();
+            let lastDepositDate = this.transactions[0].date.getTime();
+            let diffInDays = Math.round((currDate - lastDepositDate) / (1000 * 3600 * 24));
+            if (diffInDays<1){
+                console.log("")
+            }
+            console.log(Difference_In_Days);
+        }
+        if (Number(amount)>5000){      
+            console.log("Maximum deposit is 5000");
+            return;
+        }else{
+            this.balance += amount;
+            BankAccount.totalMoney += amount;
+            this.transactions.push({ type: "deposit", date: new Date(), amount: amount });
+            return `Successfully deposited שח${amount} into account ${this.accountNumber}.`;
+        }   
     }
 
     withdraw(amount) {
@@ -54,34 +78,20 @@ class BankAccount {
     }
 }
   
-function createNewAccount(){
-    const newUser = new BankAccount ("Sagiv","Levi","012345678");
-    console.log(newUser);
-    console.log(newUser.firstName);
-    // userDB.id = newUser.id;
-    // userDB.firstName = newUser.firstName;
-    // userDB.lastName = newUser.lastName;
-    // userDB.accountNumber = newUser.accountNumber
-    // userDB.pinNumber = newUser.pinNumber;
-    // console.log( userDB.firstName);
-}
-
-// let userDB = {
-//     id: "",
-//     firstName: "",
-//     lastName: "",
-//     accountNumber: "",
-//     pinNumber: "",
-//     balance: 0,
-//     transactions:[{
-//         type: "",
-//         amount: "",
-//         date: "",
-//     }]
+// function createNewAccount(){
+//     const newUser = new BankAccount ("Sagiv","Levi","012345678");
+//     // console.log(newUser);
+//     // console.log(newUser.firstName);
+    
 // }
 
-createNewAccount();
-// BankAccount.deposit(3000);
+newUser = new BankAccount ("Sagiv","Levi","012345678");
+newUser.deposit(2000);
+newUser.deposit(1000);
+debugger;
+console.log(newUser);
 
-console.log(userDB);
+// newUser.deposit(3000);
+
+
 
