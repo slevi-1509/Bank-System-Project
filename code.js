@@ -20,28 +20,45 @@ class BankAccount {
         return Math.floor(Math.random() * 9000) + 1000;
     }
 
-    depsoitSum(){
+    getDailyDepsoit(){
         if (this.transactions[0] !== undefined){
-            let sum = 0;
-            this.transactions.filter(function(element){
-                return element.date
-            })    
-        }
+            dailyDeposit = this.transactions.filter(function(element){
+                let currDate = new Date().getTime();
+                let depositDate = element.date.getTime();
+                let diffInDays = Math.round((currDate - depositDate) / (1000 * 3600 * 24));
+                return (diffInDays<1 && element.type == "deposit");
+            }).reduce((t, n)=> t.amount + n.amount);
+            return dailyDeposit;
+        }else{
+            return 0;
+        }   
+    }
+
+    getDailyWithdrawal(){
+        if (this.transactions.forEach(transaction => {
+            if (transaction.type == "withdrawal"){
+                return true}
+            })){
+            dailyWithdrawal = this.transactions.filter(function(element){
+                let currDate = new Date().getTime();
+                let WithdrawDate = element.date.getTime();
+                let diffInDays = Math.round((currDate - WithdrawDate) / (1000 * 3600 * 24));
+                return (diffInDays<1 && element.type == "withdrawal");
+            }).reduce((t, n)=> t.amount + n.amount);
+            return dailyWithdrawal;
+        }else{
+            return 0;
+        } 
     }
 
     deposit(amount) {
-        debugger;
-        if (this.transactions[0] !== undefined){
-            let currDate = new Date().getTime();
-            let lastDepositDate = this.transactions[0].date.getTime();
-            let diffInDays = Math.round((currDate - lastDepositDate) / (1000 * 3600 * 24));
-            if (diffInDays<1){
-                console.log("")
-            }
-            console.log(Difference_In_Days);
-        }
-        if (Number(amount)>5000){      
-            console.log("Maximum deposit is 5000");
+        // debugger;
+        let dailyDepositAmount = this.getDailyDepsoit();
+        if (amount>5000){      
+            console.log("Maximum single deposit is 5000");
+            return;
+        }else if(dailyDepositAmount + amount > 5000){
+            console.log(`Maximum daily deposit is 5000, you have already deposits ${dailyDepositAmount} today !!!`);
             return;
         }else{
             this.balance += amount;
@@ -52,29 +69,36 @@ class BankAccount {
     }
 
     withdraw(amount) {
-    if (amount > 0 && amount <= this.balance) {
-        this.balance -= amount;
-        BankAccount.totalMoney -= amount;
-        this.transactions.push({ type: "withdrawal", date: new Date(), amount: amount });
-        return `Successfully withdrew שח${amount} from account ${this.accountNumber}.`;
-    } else {
-        return "Insufficient funds or invalid amount for withdrawal.";
-    }
+        let dailyWithdrawAmount = this.getDailyWithdrawal();
+        if (amount > 2000){
+            console.log("Maximum single withdrawal is 2000");
+            return;    
+        }else if(dailyWithdrawAmount + amount > 2000){
+            console.log(`Maximum daily withdrawal is 2000, you have already withdraw ${dailyWithdrawAmount} today !!!`);
+            return;   
+        }else if(amount > 0 && amount <= this.balance) {
+            this.balance -= amount;
+            BankAccount.totalMoney -= amount;
+            this.transactions.push({ type: "withdrawal", date: new Date(), amount: amount });
+            return `Successfully withdrew שח${amount} from account ${this.accountNumber}.`;
+        }else{
+            return "Insufficient funds or invalid amount for withdrawal.";
+        }
     }
 
     getBalance() {
-    return `Account ${this.accountNumber} balance: שח${this.balance}`;
+        return `Account ${this.accountNumber} balance: שח${this.balance}`;
     }
 
     static totalUsers = 0;
     static totalMoney = 0;
 
     static getTotalUsers() {
-    return `Total users: ${BankAccount.totalUsers}`;
+        return `Total users: ${BankAccount.totalUsers}`;
     }
 
     static getTotalMoney() {
-    return `Total money in the bank: שח${BankAccount.totalMoney}`;
+        return `Total money in the bank: שח${BankAccount.totalMoney}`;
     }
 }
   
@@ -85,10 +109,16 @@ class BankAccount {
     
 // }
 
+let dailyDeposit = 0;
+let dailyWithdrawal = 0;
 newUser = new BankAccount ("Sagiv","Levi","012345678");
 newUser.deposit(2000);
-newUser.deposit(1000);
+newUser.deposit(1500);
+newUser.deposit(2500);
 debugger;
+newUser.withdraw(1700);
+newUser.withdraw(500);
+
 console.log(newUser);
 
 // newUser.deposit(3000);
