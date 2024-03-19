@@ -17,6 +17,9 @@ ul {
 #new-customer {
     display: none;
 }
+.new-customer-warning{
+    display: none;
+}
 #existing-customer {
     display: none;
 }
@@ -40,7 +43,25 @@ ul {
 }
 .customer-actions {
     display: none;
+    margin: 20px;
 }
 .customer-transactions {
     display: none;
 }
+.action-amount-div {
+    display: none;
+}
+.trans-table {
+    border:1px solid black;
+}
+.customers-table {
+    border:1px solid black;
+}
+.customers-table-body * {
+    font-size:0.8rem;
+}
+@media screen and (max-width: 500px) {
+    .col3, .col4{
+        display: none;
+    }
+ }
