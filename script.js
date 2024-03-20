@@ -10,13 +10,14 @@ const bank_balance = document.querySelector(".bank-balance");
 const customers_list = document.querySelector("#customers-list");
 const formNewCustomer = document.getElementById("new-customer-form");
 const loginForm = document.querySelector(".existing-customer-form");
-
 // ------Logic Elements------
 const accountsArr = [];
 const DateTime = luxon.DateTime;
+const delaySeconds = 5;
 let loggedUser = {};
 let dailyDeposit = 0;
 let dailyWithdrawal = 0;
+
 
 class BankAccount {
   constructor(firstName, lastName, id) {
@@ -151,18 +152,6 @@ function importAccountsFromLocalStorage (){
   }
 }
 
-function checkNewIdLocalStorage(newId) {
-  for (let i=0; i < window.localStorage.length;i++){
-    let text = localStorage.getItem(localStorage.key(i));
-    let customer = JSON.parse(text);
-    accountsArr[i] = new BankAccount (customer.firstName,customer.lastName,customer.id);
-    accountsArr[i].pinNumber = customer.pinNumber;
-    accountsArr[i].accountNumber = customer.accountNumber;
-    accountsArr[i].transactions = customer.transactions;
-    accountsArr[i].balance = accountsArr[i].calculateBalance();        
-}
-}
-
 function checkNewIdLocalStorage(newId){
   
   for (let i=0; i < window.localStorage.length;i++){
@@ -239,7 +228,7 @@ function showTransactions() {
       c1.innerText = actionDate
       c2.innerText = userTrans.type
       c3.innerText = userTrans.amount
-      row.append(c1.c2.c3);
+      row.append(c1,c2,c3);
       table.appendChild(row)
   }
 }
@@ -349,7 +338,7 @@ if (document.body.contains(customer_section)) {
                 setTimeout(()=>{
                   callback();
                   importAccountsFromLocalStorage();
-                },3500);
+                },delaySeconds*1000);
               }
               createNewAccount(()=>{
                 clearNewCustomer();
